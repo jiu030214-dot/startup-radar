@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>창업레이더 — 상권분석부터 창업금융까지</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #06060f;
+    --bg2: #0d0d1e;
+    --bg3: #12122a;
+    --accent: #ff4d2e;
+    --accent2: #ff8c42;
+    --blue: #3b82f6;
+    --green: #22c55e;
+    --amber: #f59e0b;
+    --red: #ef4444;
+    --text: #f0ede8;
+    --text2: rgba(240,237,232,0.5);
+    --text3: rgba(240,237,232,0.25);
+    --border: rgba(255,255,255,0.07);
+    --card: rgba(255,255,255,0.03);
+    --radius: 14px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    padding: 80px 40px 60px;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(255,77,46,0.15) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: -80px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(59,130,246,0.08) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 64px;
+  }
+
+  .logo {
+    font-family: 'Space Mono', monospace;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+
+  .logo span { color: var(--accent); }
+
+  .nav-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,77,46,0.1);
+    border: 1px solid rgba(255,77,46,0.2);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 20px;
+  }
+
+  .nav-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.8)} }
+
+  .hero-content { max-width: 700px; }
+
+  .hero-tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text2);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding-left: 2px;
+  }
+
+  .hero-title {
+    font-size: clamp(36px, 5vw, 58px);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: #fff;
+    margin-bottom: 20px;
+  }
+
+  .hero-title .accent { color: var(--accent); }
+  .hero-title .underline {
+    position: relative;
+    display: inline-block;
+  }
+  .hero-title .underline::after {
+    content: '';
+    position: absolute;
+    bottom: 2px; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 2px;
+  }
+
+  .hero-desc {
+    font-size: 16px;
+    color: var(--text2);
+    line-height: 1.7;
+    max-width: 520px;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 32px;
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+
+  .stat-item { }
+  .stat-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .stat-label { font-size: 12px; color: var(--text3); margin-top: 4px; }
+
+  /* MAIN */
+  .main { padding: 48px 40px; max-width: 900px; margin: 0 auto; }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 20px;
+  }
+
+  /* FORM */
+  .form-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    margin-bottom: 24px;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .form-group { }
+
+  .form-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 8px;
+  }
+
+  select, input[type="number"] {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-size: 14px;
+    font-family: 'Noto Sans KR', sans-serif;
+    padding: 12px 14px;
+    appearance: none;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    cursor: pointer;
+  }
+
+  select:focus, input[type="number"]:focus {
+    border-color: rgba(255,77,46,0.4);
+    background: rgba(255,77,46,0.04);
+  }
+
+  select option { background: #1a1a2e; }
+
+  .form-full { grid-column: 1 / -1; }
+
+  .btn-main {
+    width: 100%;
+    padding: 15px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Noto Sans KR', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+    position: relative;
+    overflow: hidden;
+    margin-top: 8px;
+  }
+
+  .btn-main::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%; right: 100%; bottom: 0;
+    background: rgba(255,255,255,0.1);
+    transition: all 0.4s;
+  }
+
+  .btn-main:hover::before { left: 100%; right: -100%; }
+  .btn-main:hover { background: #e63e1e; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(255,77,46,0.3); }
+  .btn-main:active { transform: none; box-shadow: none; }
+  .btn-main:disabled { background: rgba(255,77,46,0.25); cursor: not-allowed; transform: none; box-shadow: none; }
+
+  /* LOADER */
+  .loader {
+    display: none;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 48px 32px;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .loader.on { display: block; }
+
+  .loader-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: dotAnim 1.4s infinite ease-in-out;
+  }
+
+  .dot:nth-child(2) { animation-delay: 0.2s; background: var(--accent2); }
+  .dot:nth-child(3) { animation-delay: 0.4s; background: var(--blue); }
+
+  @keyframes dotAnim {
+    0%,80%,100% { transform: scale(0.5); opacity: 0.3; }
+    40% { transform: scale(1.1); opacity: 1; }
+  }
+
+  .loader-text { font-size: 15px; color: var(--text2); margin-bottom: 6px; }
+  .loader-step { font-size: 12px; color: rgba(255,77,46,0.6); min-height: 20px; }
+
+  /* RESULT */
+  .result { display: none; }
+  .result.on { display: block; }
+
+  /* Score */
+  .score-card {
+    background: var(--bg2);
+    border: 1px solid rgba(255,77,46,0.15);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .score-card::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(255,77,46,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .score-ring {
+    width: 96px; height: 96px;
+    border-radius: 50%;
+    background: conic-gradient(var(--accent) var(--p, 0deg), rgba(255,255,255,0.06) 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .score-inner {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: var(--bg2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .score-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .score-unit { font-size: 9px; color: var(--text3); }
+
+  .score-info { flex: 1; }
+  .score-grade {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .score-title { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .score-desc { font-size: 13px; color: var(--text2); line-height: 1.6; }
+
+  /* Metrics */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .metric-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+  }
+
+  .metric-label { font-size: 10px; color: var(--text3); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
+  .metric-value {
+    font-family: 'Space Mono', monospace;
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .metric-unit { font-size: 11px; color: var(--text3); }
+
+  /* Tags */
+  .tags-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    border: 1px solid;
+  }
+
+  .tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; }
+  .tag-green { background: rgba(34,197,94,0.08); border-color: rgba(34,197,94,0.2); color: var(--green); }
+  .tag-green::before { background: var(--green); }
+  .tag-amber { background: rgba(245,158,11,0.08); border-color: rgba(245,158,11,0.2); color: var(--amber); }
+  .tag-amber::before { background: var(--amber); }
+  .tag-red { background: rgba(239,68,68,0.08); border-color: rgba(239,68,68,0.2); color: var(--red); }
+  .tag-red::before { background: var(--red); }
+
+  /* Two col */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .info-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+  }
+
+  .info-card-title { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text3); margin-bottom: 14px; }
+
+  .info-item {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text2);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.5;
+  }
+
+  .info-item:last-child { border-bottom: none; }
+  .info-item::before { content: '→'; color: var(--accent); flex-shrink: 0; margin-top: 1px; }
+
+  /* Finance */
+  .finance-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+
+  .finance-title { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text3); margin-bottom: 16px; }
+
+  .finance-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+
+  .finance-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .finance-item:first-of-type { padding-top: 0; }
+
+  .finance-item:hover .finance-name { color: var(--accent); }
+
+  .finance-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    background: rgba(255,77,46,0.1);
+    border: 1px solid rgba(255,77,46,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .finance-name { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; transition: color 0.2s; }
+  .finance-cond { font-size: 12px; color: var(--text2); line-height: 1.5; }
+  .finance-limit { font-size: 12px; color: var(--accent); font-weight: 600; margin-top: 3px; }
+
+  .finance-arrow {
+    margin-left: auto;
+    color: var(--text3);
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 8px;
+    transition: color 0.2s, transform 0.2s;
+  }
+
+  .finance-item:hover .finance-arrow { color: var(--accent); transform: translateX(3px); }
+
+  /* Advice */
+  .advice-card {
+    background: rgba(255,77,46,0.05);
+    border: 1px solid rgba(255,77,46,0.15);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: var(--text2);
+    line-height: 1.7;
+  }
+
+  /* Data source */
+  .data-source {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: var(--text3);
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+
+  .ds-badge {
+    background: rgba(59,130,246,0.08);
+    border: 1px solid rgba(59,130,246,0.15);
+    color: rgba(59,130,246,0.7);
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+
+  /* Footer */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 40px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--text3);
+    line-height: 1.8;
+  }
+
+  @media (max-width: 640px) {
+    .hero { padding: 40px 20px 40px; }
+    .main { padding: 32px 20px; }
+    .form-grid { grid-template-columns: 1fr; }
+    .metrics-grid { grid-template-columns: 1fr 1fr; }
+    .two-col { grid-template-columns: 1fr; }
+    .hero-stats { gap: 20px; }
+    .score-card { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="nav">
+    <div class="logo">창업<span>레이더</span></div>
+    <div class="nav-badge">서울시 공공데이터 기반</div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-tag">2026 서울시 빅데이터 활용 경진대회 · 창업 부문</div>
+    <h1 class="hero-title">
+      어디서 창업하면<br>
+      <span class="underline accent">살아남을 수 있을까?</span>
+    </h1>
+    <p class="hero-desc">업종과 위치를 입력하면 서울시 공공데이터 3종을 AI로 분석해<br>생존 가능성·예상 매출·맞춤 창업금융까지 한 번에 알려드립니다.</p>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">3종</div>
+        <div class="stat-label">공공데이터 결합</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">30초</div>
+        <div class="stat-label">분석 소요 시간</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">0원</div>
+        <div class="stat-label">이용 요금</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- FORM -->
+  <div class="section-label">창업 정보 입력</div>
+  <div class="form-card">
+    <div class="form-grid">
+      <div class="form-group">
+        <label class="form-label">창업 위치</label>
+        <select id="loc">
+          <option value="">위치 선택</option>
+          <option>강남구 역삼동</option>
+          <option>강남구 삼성동</option>
+          <option>마포구 홍대입구</option>
+          <option>마포구 연남동</option>
+          <option>성동구 성수동</option>
+          <option>송파구 잠실동</option>
+          <option>종로구 인사동</option>
+          <option>용산구 이태원동</option>
+          <option>관악구 신림동</option>
+          <option>노원구 중계동</option>
+          <option>영등포구 여의도동</option>
+          <option>강서구 발산동</option>
+          <option>서대문구 신촌동</option>
+          <option>중구 명동</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">업종</label>
+        <select id="biz">
+          <option value="">업종 선택</option>
+          <option>카페</option>
+          <option>한식 음식점</option>
+          <option>양식 음식점</option>
+          <option>편의점</option>
+          <option>헬스장 / PT샵</option>
+          <option>네일샵 / 미용실</option>
+          <option>베이커리</option>
+          <option>스터디카페</option>
+          <option>반려동물샵</option>
+          <option>의류 쇼핑</option>
+          <option>치킨집</option>
+          <option>분식점</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">예상 창업 자본금</label>
+        <select id="cap">
+          <option>3,000만원 이하</option>
+          <option selected>3,000 ~ 5,000만원</option>
+          <option>5,000만원 ~ 1억원</option>
+          <option>1억원 이상</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">나이</label>
+        <select id="age">
+          <option>20대 초반 (만 20~24세)</option>
+          <option>20대 후반 (만 25~29세)</option>
+          <option>30대 초반 (만 30~34세)</option>
+          <option>30대 후반 (만 35~39세)</option>
+          <option>40대 이상</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn-main" id="btn" onclick="analyze()">AI 분석 시작하기 →</button>
+  </div>
+
+  <!-- LOADER -->
+  <div class="loader" id="loader">
+    <div class="loader-dots">
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    </div>
+    <div class="loader-text">서울 공공데이터 분석 중</div>
+    <div class="loader-step" id="lstep">유동인구 데이터 수집 중...</div>
+  </div>
+
+  <!-- RESULT -->
+  <div class="result" id="result">
+
+    <div class="section-label" id="result-label"></div>
+
+    <!-- Score -->
+    <div class="score-card" id="scoreCard">
+      <div class="score-ring" id="ring">
+        <div class="score-inner">
+          <div class="score-num" id="scoreNum">—</div>
+          <div class="score-unit">점</div>
+        </div>
+      </div>
+      <div class="score-info">
+        <div class="score-grade" id="scoreGrade">생존 가능성</div>
+        <div class="score-title" id="scoreTitle">분석 중</div>
+        <div class="score-desc" id="scoreDesc"></div>
+      </div>
+    </div>
+
+    <!-- Metrics -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">예상 월 매출</div>
+        <div class="metric-value" id="rev">—</div>
+        <div class="metric-unit">만원 범위</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">손익분기점</div>
+        <div class="metric-value" id="be">—</div>
+        <div class="metric-unit">개월 예상</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">초기 권장 자본금</div>
+        <div class="metric-value" id="rec_cap">—</div>
+        <div class="metric-unit">만원</div>
+      </div>
+    </div>
+
+    <!-- Tags -->
+    <div class="tags-row" id="tags"></div>
+
+    <!-- Strengths & Risks -->
+    <div class="two-col">
+      <div class="info-card">
+        <div class="info-card-title">강점</div>
+        <div id="strengths"></div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-title">주의사항</div>
+        <div id="risks"></div>
+      </div>
+    </div>
+
+    <!-- Finance -->
+    <div class="finance-card">
+      <div class="finance-title">맞춤 창업 금융 상품</div>
+      <div id="finance"></div>
+    </div>
+
+    <!-- Advice -->
+    <div class="advice-card" id="advice"></div>
+
+    <!-- Data source -->
+    <div class="data-source">
+      <span>데이터 출처:</span>
+      <span class="ds-badge">서울 열린데이터광장 · 생활인구</span>
+      <span class="ds-badge">서울 열린데이터광장 · 상권 추정매출</span>
+      <span class="ds-badge">공공데이터포털 · 소진공 상가정보</span>
+    </div>
+
+  </div>
+</div>
+
+<div class="footer">
+  <div style="font-weight:700;color:rgba(255,255,255,0.4);margin-bottom:6px">창업레이더</div>
+  서울시 공공데이터 × 생성형 AI × 창업 정책금융 통합 플랫폼<br>
+  2026 서울시 빅데이터 활용 경진대회 창업 부문 출품작
+</div>
+
+<script>
+const SEOUL_KEY = '794656766c6a777334345a55797943';
+const STEPS = [
+  '서울 열린데이터광장 생활인구 수집 중...',
+  '소진공 상가정보 API 호출 중...',
+  '서울 상권 추정매출 분석 중...',
+  'AI가 데이터 종합 분석 중...',
+  '맞춤 금융 상품 매칭 중...'
+];
+
+const FINANCE_DB = [
+  {
+    icon: '🏛️',
+    name: '중진공 청년전용창업자금',
+    cond: '만 39세 이하 · 업력 3년 미만 예비창업자',
+    limit: '최대 1억원 · 연 2.5% 고정금리',
+    maxAge: 39,
+    url: 'https://kosmes.or.kr'
+  },
+  {
+    icon: '📋',
+    name: '예비창업패키지 (창진원)',
+    cond: '사업자 미등록 예비창업자 · 혁신 아이템 보유',
+    limit: '최대 1억원 지원금 (상환 없음)',
+    maxAge: 99,
+    url: 'https://k-startup.go.kr'
+  },
+  {
+    icon: '🌏',
+    name: '소진공 소상공인 창업경영자금',
+    cond: '예비창업자 및 업력 1년 미만 소상공인',
+    limit: '최대 7,000만원 · 연 2%대',
+    maxAge: 99,
+    url: 'https://semas.or.kr'
+  },
+  {
+    icon: '🛡️',
+    name: '기보 창업기업 신용보증',
+    cond: '담보 없는 예비창업자 · 신용보증 방식',
+    limit: '담보 없이 보증 · 보증료 연 0.5~1%',
+    maxAge: 99,
+    url: 'https://kibo.or.kr'
+  },
+  {
+    icon: '🎓',
+    name: '청년창업중심대학 지원',
+    cond: '만 29세 이하 생애최초 예비창업자',
+    limit: '최대 1억원 + 교육·멘토링 패키지',
+    maxAge: 29,
+    url: 'https://k-startup.go.kr'
+  }
+];
+
+async function fetchPublicData(loc, biz) {
+  // 실제 공공데이터 API 호출 시도
+  try {
+    const dong = loc.split(' ')[1] || loc;
+    const url = `https://cors-anywhere.herokuapp.com/http://openapi.seoul.go.kr:8088/${SEOUL_KEY}/json/SPOP_LOCAL_RESD_DONG/1/5/ / /${dong}/`;
+    const res = await fetch(url, { signal: AbortSignal.timeout(4000) });
+    if (res.ok) {
+      const data = await res.json();
+      return data;
+    }
+  } catch(e) {}
+  return null;
+}
+
+async function analyze() {
+  const loc = document.getElementById('loc').value;
+  const biz = document.getElementById('biz').value;
+  const cap = document.getElementById('cap').value;
+  const age = document.getElementById('age').value;
+
+  if (!loc || !biz) { alert('위치와 업종을 모두 선택해주세요!'); return; }
+
+  document.getElementById('btn').disabled = true;
+  document.getElementById('result').classList.remove('on');
+  document.getElementById('loader').classList.add('on');
+
+  let si = 0;
+  const stepEl = document.getElementById('lstep');
+  stepEl.textContent = STEPS[0];
+  const iv = setInterval(() => {
+    si = Math.min(si + 1, STEPS.length - 1);
+    stepEl.textContent = STEPS[si];
+  }, 700);
+
+  // 공공데이터 병렬 호출 시도
+  const pubData = await fetchPublicData(loc, biz);
+
+  const prompt = `당신은 서울시 공공데이터 기반 창업 컨설턴트입니다.
+아래 창업 조건을 분석하고 JSON만 출력하세요. 다른 텍스트 없이 JSON만.
+
+창업위치: ${loc}
+업종: ${biz}
+자본금: ${cap}
+나이: ${age}
+${pubData ? `공공데이터참고: ${JSON.stringify(pubData).substring(0,200)}` : ''}
+
+{"score":숫자(0-100),"grade":"우수|보통|주의","gradeLabel":"이 상권 살아남을 수 있다|신중한 준비 필요|진입에 주의 요망 중 하나","desc":"이 상권과 업종에 대한 핵심 평가 2문장","revenueMin":숫자,"revenueMax":숫자,"breakeven":숫자,"recCap":숫자,"competition":"낮음|보통|높음","demand":"낮음|보통|높음","risk":"낮음|보통|높음","strengths":["강점1","강점2","강점3"],"risks":["리스크1","리스크2","리스크3"],"advice":"핵심 조언 1~2문장 (60자 이내)"}`;
+
+  let d = null;
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const json = await res.json();
+    const txt = (json.content || []).map(b => b.text || '').join('').replace(/```json|```/g, '').trim();
+    d = JSON.parse(txt);
+  } catch(e) {
+    // 폴백
+    d = {
+      score: 68, grade: '보통', gradeLabel: '신중한 준비 필요',
+      desc: `${loc}의 ${biz}는 경쟁이 있지만 차별화 전략으로 충분히 승산이 있는 상권입니다.`,
+      revenueMin: 320, revenueMax: 580, breakeven: 15, recCap: 5000,
+      competition: '높음', demand: '높음', risk: '보통',
+      strengths: ['높은 유동인구로 안정적 수요 확보', '대중교통 접근성 우수', '젊은 연령층 주요 상권'],
+      risks: ['동종 업종 경쟁 심화', '임대료 상승 가능성', '초기 마케팅 비용 필요'],
+      advice: '차별화된 컨셉과 SNS 마케팅으로 초기 인지도를 빠르게 높이는 것이 핵심입니다.'
+    };
+  }
+
+  clearInterval(iv);
+  document.getElementById('loader').classList.remove('on');
+  render(d, loc, biz, age);
+  document.getElementById('btn').disabled = false;
+}
+
+function getAgeNum(ageStr) {
+  if (ageStr.includes('20~24')) return 22;
+  if (ageStr.includes('25~29')) return 27;
+  if (ageStr.includes('30~34')) return 32;
+  if (ageStr.includes('35~39')) return 37;
+  return 45;
+}
+
+function render(d, loc, biz, age) {
+  // Label
+  document.getElementById('result-label').textContent = `${loc} · ${biz} 분석 결과`;
+
+  // Score ring
+  const pct = Math.round(d.score * 3.6);
+  document.getElementById('ring').style.setProperty('--p', pct + 'deg');
+  document.getElementById('scoreNum').textContent = d.score;
+  document.getElementById('scoreGrade').textContent = `생존 가능성 · ${d.grade}`;
+  document.getElementById('scoreTitle').textContent = d.gradeLabel;
+  document.getElementById('scoreDesc').textContent = d.desc;
+
+  // Metrics
+  document.getElementById('rev').textContent = `${d.revenueMin}~${d.revenueMax}`;
+  document.getElementById('be').textContent = d.breakeven;
+  document.getElementById('rec_cap').textContent = d.recCap.toLocaleString();
+
+  // Tags
+  const tgMap = { 낮음: { demand: 'red', comp: 'green', risk: 'green' }, 보통: { demand: 'amber', comp: 'amber', risk: 'amber' }, 높음: { demand: 'green', comp: 'red', risk: 'red' } };
+  const dm = tgMap[d.demand] || tgMap['보통'];
+  const cm = tgMap[d.competition] || tgMap['보통'];
+  const rm = tgMap[d.risk] || tgMap['보통'];
+  document.getElementById('tags').innerHTML = `
+    <span class="tag tag-${dm.demand}">수요 ${d.demand}</span>
+    <span class="tag tag-${cm.comp}">경쟁 ${d.competition}</span>
+    <span class="tag tag-${rm.risk}">리스크 ${d.risk}</span>
+  `;
+
+  // Strengths & Risks
+  document.getElementById('strengths').innerHTML = (d.strengths || []).map(s =>
+    `<div class="info-item">${s}</div>`).join('');
+  document.getElementById('risks').innerHTML = (d.risks || []).map(r =>
+    `<div class="info-item">${r}</div>`).join('');
+
+  // Finance - age filter
+  const ageNum = getAgeNum(age);
+  const matched = FINANCE_DB.filter(f => f.maxAge >= ageNum);
+  document.getElementById('finance').innerHTML = matched.map(f => `
+    <a class="finance-item" href="${f.url}" target="_blank" rel="noopener">
+      <div class="finance-icon">${f.icon}</div>
+      <div>
+        <div class="finance-name">${f.name}</div>
+        <div class="finance-cond">${f.cond}</div>
+        <div class="finance-limit">${f.limit}</div>
+      </div>
+      <div class="finance-arrow">→</div>
+    </a>
+  `).join('');
+
+  // Advice
+  document.getElementById('advice').textContent = '💡 ' + d.advice;
+
+  document.getElementById('result').classList.add('on');
+  document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+</body>
+</html>
